@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -19,21 +20,16 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Activity2 extends FragmentActivity {
-
-	private List<String> tabList;
-	private List<Fragment> fragments;
-
+	private List<String> list = new ArrayList<>(Arrays.asList(new String[]{"包青天", "白", "baiqiantao(注意大小写)", "1", "12", "123", "1234",}));
 	private TabLayout tabLayout;
 	private ViewPager viewPager;
-	private FragmentPagerAdapter adapter;
-	private int tag;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		tag = getIntent().getIntExtra("tag", 0);
-		initData();
+		int tag = getIntent().getIntExtra("tag", 0);
+
 		initView();
 
 		if (tag != 5) {//是否自定义Tab，是否添加监听
@@ -50,41 +46,31 @@ public class Activity2 extends FragmentActivity {
 		}
 	}
 
-	private void initData() {
-		String[] array = new String[]{"包青天", "白", "baiqiantao(注意大小写)", "1", "12", "123", "1234", "12345",};
-		tabList = new ArrayList<>(Arrays.asList(array));
-
-		fragments = new ArrayList<>();
-		for (String string : tabList) {
-			fragments.add(MyFragment.newInstance(string));
-		}
-	}
-
 	private void initView() {
 		viewPager = (ViewPager) findViewById(R.id.view_pager);
 		tabLayout = (TabLayout) findViewById(R.id.tablayout1);
 		findViewById(R.id.tablayout1).setVisibility(View.VISIBLE);
 
-		adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+		PagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
 			@Override
 			public Fragment getItem(int position) {
-				return fragments.get(position);
+				return MyFragment.newInstance(list.get(position));
 			}
 
 			@Override
 			public int getCount() {
-				return fragments.size();
+				return list.size();
 			}
 
 			@Override
 			public CharSequence getPageTitle(int position) {
-				return tabList.get(position);
+				return list.get(position);
 			}
 		};
 		viewPager.setAdapter(adapter);
 
 		tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);//可滚动模式，另一个是固定宽度模式
-		tabLayout.setupWithViewPager(viewPager);//关键一步
+		tabLayout.setupWithViewPager(viewPager);
 	}
 
 	/**
@@ -93,12 +79,12 @@ public class Activity2 extends FragmentActivity {
 	private void setCustomTabView() {
 		tabLayout.setSelectedTabIndicatorHeight(0);
 
-		for (int i = 0; i < fragments.size(); i++) {//必须在setupWithViewPager之后（即被绑定VP的数据确定后）才可以操作
+		for (int i = 0; i < list.size(); i++) {//必须在setupWithViewPager之后（即被绑定VP的数据确定后）才可以操作
 			View view = LayoutInflater.from(this).inflate(R.layout.item_tab, null);
 
 			TextView tv_tab_name = (TextView) view.findViewById(R.id.tv_tab_name);
 			View line_indicator = view.findViewById(R.id.line_indicator);
-			tv_tab_name.setText(tabList.get(i));//控制每个Tab的文字
+			tv_tab_name.setText(list.get(i));//控制每个Tab的文字
 			if (i == 0) {//控制默认选中Tab的样式
 				view.setSelected(true);//背景样式
 				line_indicator.setSelected(true);//指示器样式

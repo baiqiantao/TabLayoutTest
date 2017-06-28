@@ -12,7 +12,6 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class MyFragment extends Fragment {
-	private String tag;
 
 	public static MyFragment newInstance(String tag) {
 		Bundle args = new Bundle();
@@ -23,15 +22,9 @@ public class MyFragment extends Fragment {
 	}
 
 	@Override
-	public void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		tag = getArguments().getString("tag");
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		TextView textView = new TextView(getContext());
-		textView.setText(tag);
+		textView.setText(getArguments().getString("tag"));
 		textView.setGravity(Gravity.CENTER);
 		textView.setBackgroundColor(0xFF000000 + new Random().nextInt(0xFFFFFF));
 		//注意，Integer.MAX_VALUE= 0x7fffffff，超过这个值就是负数了，所以通过随机数获取int值时，传入的值要小于0x7fffffff

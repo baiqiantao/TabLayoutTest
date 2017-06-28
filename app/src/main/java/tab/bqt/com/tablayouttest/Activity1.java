@@ -29,10 +29,8 @@ public class Activity1 extends FragmentActivity {
 		if (tag != 3) {
 			tabLayout = (TabLayout) findViewById(R.id.tablayout1);
 			findViewById(R.id.tablayout1).setVisibility(View.VISIBLE);
-			findViewById(R.id.tablayout2).setVisibility(View.GONE);
 		} else {
 			tabLayout = (TabLayout) findViewById(R.id.tablayout2);
-			findViewById(R.id.tablayout1).setVisibility(View.GONE);
 			findViewById(R.id.tablayout2).setVisibility(View.VISIBLE);
 		}
 
@@ -50,8 +48,8 @@ public class Activity1 extends FragmentActivity {
 
 			@Override
 			public CharSequence getPageTitle(int position) {
+				//0、不重写ViewPager的getPageTitle方法，会导致TabLayout没有标题
 				if (tag == 0) return super.getPageTitle(position);
-					//0、不重写ViewPager的getPageTitle方法，会导致TabLayout没有标题
 				else return list.get(position);//因为返回值是CharSequence，所以可以返回一个内容丰富的SpannableString
 			}
 		});
@@ -62,12 +60,11 @@ public class Activity1 extends FragmentActivity {
 
 		//2、代码中设置Tab样式
 		if (tag == 2) {
-			tabLayout.setTabGravity(Gravity.TOP);
+			tabLayout.setTabGravity(Gravity.TOP);//没卵用啊！
 			tabLayout.setTabTextColors(Color.RED, Color.GREEN);
 			tabLayout.setSelectedTabIndicatorColor(Color.BLUE);
 			tabLayout.setSelectedTabIndicatorHeight(15);
 			tabLayout.setBackgroundColor(Color.YELLOW);
 		}
-
 	}
 }
