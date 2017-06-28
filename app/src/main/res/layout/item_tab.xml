@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/tab_item"
+                android:layout_width="50dp"
+                android:layout_height="35dp"
+                android:background="@drawable/sel_tab_bgcolor"
+                android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_tab_name"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxEms="3"
+        android:maxLines="1"
+        android:text="热门热门热门热门"
+        android:textColor="@drawable/sel_tab_textcolor"
+        android:textSize="12sp"/>
+
+    <TextView
+        android:id="@+id/line_indicator"
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/sel_tab_indicator"/>
+</RelativeLayout>

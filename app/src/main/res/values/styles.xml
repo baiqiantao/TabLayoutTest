@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyTabStyle" parent="Widget.Design.TabLayout">
+        <item name="android:background">@android:color/holo_green_dark</item><!--此背景会被tabBackground覆盖掉-->
+        <item name="tabBackground">@android:color/holo_orange_dark</item><!--"通常"和background的效果完全一样-->
+
+        <item name="tabContentStart">20dp</item><!--此值导致左边一块区域属于background，但不属于tabBackground-->
+        <item name="tabGravity">fill</item><!--只能是fill或center-->
+
+        <item name="tabIndicatorHeight">5dp</item>
+        <item name="tabIndicatorColor">#f00</item>
+        <item name="tabMaxWidth">120dp</item>
+        <item name="tabMinWidth">20dp</item>
+
+        <item name="tabMode">scrollable</item>
+        <item name="tabPadding">0dp</item>
+        <item name="tabSelectedTextColor">#f00</item>
+
+        <!--以下属性无效，除非通过setCustomView使用自定义的View作为Tab-->
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">top</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="MyTabTextAppearance" parent="TextAppearance.Design.Tab"><!--必须继承自TextAppearance.Design.Tab -->
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@drawable/sel_tab_textcolor</item><!--选择器无效！除非根据tab的选中状态手动设置-->
+        <item name="android:textAllCaps">false</item>
+    </style>
+</resources>

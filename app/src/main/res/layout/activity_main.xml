@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_add"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:onClick="add"
+        android:text="添加一个Tab"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_remove"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:onClick="remove"
+        android:text="移除一个Tab"
+        android:visibility="gone"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:theme="@style/Widget.Design.TabLayout"/>
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tablayout2"
+        style="@style/MyTabStyle"
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        app:tabTextAppearance="@style/MyTabTextAppearance"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>
