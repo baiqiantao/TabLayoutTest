@@ -3,12 +3,21 @@ package tab.bqt.com.tablayouttest;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.mjmedia.mediasdk.JJMediaCallback;
+import com.mjmedia.mediasdk.JJMediaSDK;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends ListActivity {
 
@@ -26,8 +35,20 @@ public class MainActivity extends ListActivity {
 				"7、添加点击事件，但不手动处理点击Tab后TabLayout和VP的变化",
 				"8、添加点击事件，并手动处理点击Tab后TabLayout和VP的变化",
 				"9、【动态添加、删除VP中的数据--正常情况】",
-				"9、【动态添加、删除VP中的数据--非正常情况】",};
+				"9、【动态添加、删除VP中的数据--非正常情况】",
+				"9、【开始录音】",
+				"9、【结束录音】",};
 		setListAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, new ArrayList<>(Arrays.asList(array))));
+
+		JJMediaSDK.init(this, new JJMediaCallback() {
+			@Override
+			public void OnSpeakerStatus(int i, int i1, boolean b) {
+			}
+
+			@Override
+			public void OnMediaMsgCode(int i) {
+			}
+		});
 	}
 
 	@Override
@@ -64,6 +85,34 @@ public class MainActivity extends ListActivity {
 				intent5.putExtra("tag", position);
 				startActivity(intent5);
 				break;
+			case 11:
+				String pcmPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "a" + File.separator + "temp_" + ".pcm";
+				String pcmPath2 = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "a" + File.separator + "temp2_" + ".pcm";
+
+				boolean b = JJMediaSDK.startRecord(getVoicePcmPath(), getVoiceAccPath());
+				Toast.makeText(this, b+"", Toast.LENGTH_SHORT).show();
+				break;
+			case 12:
+				JJMediaSDK.stopRecord();
+				break;
 		}
+	}
+
+
+	public static final String VOICE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "voice";
+
+	public static String getVoicePcmPath() {
+		String data = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss SSS", Locale.getDefault()).format(new Date());
+		return VOICE_PATH + File.separator + "temp_" + data + ".pcm";
+	}
+
+	public static String getVoiceAccPath() {
+		String data = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss SSS", Locale.getDefault()).format(new Date());
+		return VOICE_PATH + File.separator + "temp_" + data + ".aac";
+	}
+
+	public static String getXFVoiceSavePath() {
+		String data = new SimpleDateFormat("yyyy_MM_dd HH_mm_ss SSS", Locale.getDefault()).format(new Date());
+		return VOICE_PATH + File.separator + "xf_" + data + ".wav";
 	}
 }
